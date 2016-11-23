@@ -33,5 +33,31 @@
             'Home Shopping Network',
             'Honeywell',
         ];
+
+
+        //for typeahead without bootstrap on objects
+        this.selectedCountries = [{country:"United Kingdom", capital:"London"}];
+        this.countries = [
+            {
+                country : "India",
+                capital : "Delhi"
+            },
+            {
+                country : "Russia",
+                capital : "Moscow"
+            },
+            {
+                country : "Singapore",
+                capital : "Singapore"
+            },
+            {
+                country : "Egypt",
+                capital : "Cairo"
+            },
+            {
+                country : "Japan",
+                capital : "Tokyo"
+            }
+        ] 
     }
 })();
