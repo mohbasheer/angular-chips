@@ -6,19 +6,21 @@
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/bower_components/components-font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="samples.css">
+	<style>
+		div.demo-unit {
+			margin: 4em 1em;
+		}
+	</style>
 </head>
 
 <body ng-app="sample">
-    <!-- Basic Example -->
-    <!--  -->
-    <!--  -->
-    <h4>Basic Example</h4>
-    <div ng-controller="basicController as inputdemo">
+    <div ng-controller="basicController as inputdemo" class="demo-unit">
+    	<h4>Basic Example</h4>
         <chips ng-model="inputdemo.companies">
             <chip-tmpl>
                 <div class="default-chip">
                     {{chip}}
-                    <span class="glyphicon glyphicon-remove" remove-chip></span>
+                    <span class="glyphicon glyphicon-remove" remove-chip-button></span>
                 </div>
             </chip-tmpl>
             <input chip-control></input>
@@ -29,12 +31,10 @@
             <div>inputdemo.companies = {{inputdemo.companies}}</div>
         </div>
     </div>
-    <!-- Example for Custom Rendering -->
-    <!--  -->
-    <!--  -->
-    <br>
-    <h4>Custom Rendering</h4>
-    <div ng-controller="customRenderingController as custom">
+
+
+    <div ng-controller="customRenderingController as custom" class="demo-unit">
+    	<h4>Custom Rendering</h4>
         <chips ng-model="custom.countries" render="custom.render(data)">
             <chip-tmpl>
                 <div class="default-chip">
@@ -51,12 +51,9 @@
             <div>custom.countries = {{custom.countries}}</div>
         </div>
     </div>
-    <!-- Example for Using Promise (with list of string) -->
-    <!--  -->
-    <!--  -->
-    <br>
-    <h4>Using Promise (with list of string)</h4>
-    <div ng-controller="usingPromiseStrController as usingPromise">
+
+    <div ng-controller="usingPromiseStrController as usingPromise" class="demo-unit">
+    	<h4>Using Promise (with list of string)</h4>
         <chips defer ng-model="usingPromise.list" render="usingPromise.render(data)">
             <chip-tmpl>
                 <div class="default-chip">
@@ -75,12 +72,9 @@
             <div> usingPromise.list = {{usingPromise.list}}</div>
         </div>
     </div>
-    <!-- Example for Using Promise (with list of object) -->
-    <!--  -->
-    <!--  -->
-    <br>
-    <h4>Using Promise (with list of object)</h4>
-    <div ng-controller="usingPromiseObjController as usingPromiseObj">
+
+    <div ng-controller="usingPromiseObjController as usingPromiseObj" class="demo-unit">
+    	<h4>Using Promise (with list of object)</h4>
         <chips defer ng-model="usingPromiseObj.countries" render="usingPromiseObj.render(data)">
             <chip-tmpl>
                 <div class="default-chip">
@@ -100,12 +94,10 @@
             <div> usingPromiseObj.countries = {{usingPromiseObj.countries}}</div>
         </div>
     </div>
-    <!-- Example for Using bootstrap.ui.typeahead -->
-    <!--  -->
-    <!--  -->
-    <br>
-    <h4>Using bootstrap.ui.typeahead</h4>
-    <div ng-controller="basicController as typeahead">
+
+
+    <div ng-controller="basicController as typeahead" class="demo-unit">
+    	<h4>Using bootstrap.ui.typeahead</h4>
         <chips ng-model="typeahead.companies">
             <chip-tmpl>
                 <div class="default-chip">
@@ -121,6 +113,40 @@
             <div> typeahead.companies = {{typeahead.companies}}</div>
         </div>
     </div>
+
+
+    <div ng-controller="basicController as inputdemo" class="demo-unit">
+    	<h4>Custom Chip Styling</h4>
+
+    	<style>
+    	  div.myChip {
+    	    display: inline-block;
+    	    background-color: yellow;
+    	    border: 1px solid blue;
+    	    margin: 0px 0.5em;
+    	    padding: 4px;
+    	  }
+    	  div.myChip:focus {
+    	    background-color: orange;
+    	  }
+    	</style>
+
+        <chips ng-model="inputdemo.companies">
+	    <chip-tmpl>
+		    <div class="myChip">
+			    {{chip}}
+			    <b remove-chip-button>(X)</b>
+		    </div>
+	    </chip-tmpl>
+            <input chip-control></input>
+        </chips>
+        <!-- Printing controller value -->
+        <div class="printvalue">
+            <b>Controller:</b>
+            <div>inputdemo.companies = {{inputdemo.companies}}</div>
+        </div>
+    </div>
+    <br>
     <br>
     <br>
     <br>

@@ -18,9 +18,9 @@ describe('Directive chips : Custom Rendering', function() {
             return obj.name === 'India' ? false : true;
         };
         compile = $injector.get('$compile');
-        template = '<chips ng-model="samples" render="cutomize(val)">' +
+        template = '<chips ng-model="samples" render="cutomize(val)" remove-chip="deleteChip($chip)">' +
             '<chip-tmpl>' +
-            '<div class="default-chip">{{chip.name}} , {{chip.fl}}<span class="glyphicon glyphicon-remove" remove-chip="deleteChip(obj)"></span></div>' +
+            '<div class="default-chip">{{chip.name}} , {{chip.fl}}</div>' +
             '</chip-tmpl>' +
             '<input chip-control></input>' +
             '</chips>';
@@ -39,15 +39,9 @@ describe('Directive chips : Custom Rendering', function() {
         expect(scope.samples[scope.samples.length - 1].name).toBe('Japan');
     });
 
-    it('check deleting chip by passing string', function() {
-        getChipScope(element,1).$broadcast('chip:delete')
-        expect(scope.samples[1].name).not.toBe('China');
-        expect(scope.samples[1].name).not.toBe('China');
-    });
-
     it('check chip delete restriction', function() {
-        getChipScope(element,0).$broadcast('chip:delete')
-            // as per logic 'India' should not delete
+	isolateScope.chips.deleteChip(0);
+
         expect(scope.samples[0].name).toBe('India');
     });
 
