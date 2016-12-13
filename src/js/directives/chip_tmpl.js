@@ -4,17 +4,17 @@
 
     function ChipTmpl() {
         return {
-            restrict: 'E',
+            require: '^^chips',
             transclude: true,
-            link: function(scope, iElement, iAttrs, contrl, transcludefn) {
+            link: function(scope, iElement, iAttrs, chipsCtrl, transcludefn) {
                 transcludefn(scope, function(clonedTranscludedContent) {
-                    iElement.append(clonedTranscludedContent);
-                });
-                iElement.on('keydown', function(event) {
-                    if (event.keyCode === 8) {
-                        scope.$broadcast('chip:delete');
-                        event.preventDefault();
-                    }
+                    var html = '';
+                    angular.forEach(clonedTranscludedContent, function(it) {
+                            html += it.outerHTML || '';
+                    });
+
+                    chipsCtrl.registerChild(html)
+                    iElement.remove();
                 });
             }
         }

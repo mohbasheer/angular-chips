@@ -58,10 +58,4 @@ describe('Directive chips : Using promise with list of string', function() {
         timeout.flush()
         expect(scope.samples[scope.samples.length - 1]).not.toBe('orange');
     });
-
-    it('check deleting chip by passing string', function() {
-        getChipScope(element).$broadcast('chip:delete')
-        expect(scope.samples[0].name).not.toBe('orange');
-    });
-
 });

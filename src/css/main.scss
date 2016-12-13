@@ -2,25 +2,20 @@ $default-color: rgb(224, 224, 224);
 $focus-color: rgb(16, 108, 200);
 $chip-tmpl-focus-color: rgb(158, 158, 158);
 
-chip-tmpl {
+.default-chip {
     display: inline-block;
     margin: 0 5px 5px 0;
-}
-
-.default-chip {
     border: 2px solid $default-color;
     border-radius: 5px;
     background: $default-color;
     padding: 5px;
 }
 
-chip-tmpl:focus {
+.default-chip:focus {
     outline: none;
-    .default-chip {
-        border: 2px solid $chip-tmpl-focus-color;
-        background: $chip-tmpl-focus-color;
-        color: white;
-    }
+    border: 2px solid $chip-tmpl-focus-color;
+    background: $chip-tmpl-focus-color;
+    color: white;
 }
 
 .chip-failed {
