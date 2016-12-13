@@ -127,6 +127,10 @@
                     scope.chips.list.push(data);
                     model.add(data);
                 }
+
+                if (scope.onAdd) {
+                    scope.onAdd({$chip: data});
+                }
             };
 
             scope.chips.deleteChip = function(index) {
@@ -149,6 +153,10 @@
                     model.deleteByValue(deletedChip.defer);
                 } else {
                     model.delete(index);
+                }
+
+                if (scope.onRemove) {
+                    scope.onRemove({$chip: deletedChip});
                 }
 
                 return true;
@@ -256,7 +264,9 @@
                 *  remove-chip="callback($chip)"
                      *  Call back method should return true to remove or false for nothing
                 */
-                removeChip: '&?'
+                removeChip: '&?',
+                onAdd: '&?',
+                onRemove: '&?'
             },
             transclude: true,
             require: 'ngModel',

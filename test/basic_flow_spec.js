@@ -188,5 +188,4 @@ describe('Directive chips : Basic flow', function() {
         var fun = function() { compile(angular.element(str))(scope) };
         expect(fun).toThrow('should have only one chip-tmpl');
     });
-
 });
