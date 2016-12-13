@@ -196,10 +196,11 @@
             });
             /*this method will handle 'delete or Backspace' and left, right key press*/
             scope.chips.handleKeyDown = function(event) {
+                if (event.target === inputElement && inputElement.value.length > 0) {
+                    return;
+                }
+
                 var chipElements = rootDiv.children();
-
-
-                var chipTmpls;
 
                 function focusOnChip(direction) {
                     var index;
