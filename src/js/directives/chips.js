@@ -201,8 +201,6 @@
                     chipTmpls = iElement.find('chip-tmpl');
                     chipTmpls[index - 1].focus();
                     chipNavigate = chipNavigator(index-1);
-                    if(event.target.nodeName !== 'INPUT')
-                        chipTmpls[chipNavigate(event.keyCode)].focus();
                 }
 
                 if (event.keyCode === 8) {
@@ -216,11 +214,19 @@
                          */
                         var chipTemplates = iElement.find('chip-tmpl');
                         if (chipTemplates.length > 0 && parseInt(event.target.getAttribute('index')) - 1 === chipTemplates.length)
-                            iElement.find('chip-tmpl')[chipNavigate(37)].focus();
+                            chipNavigate === null ? focusOnChip() : iElement.find('chip-tmpl')[chipNavigate(37)].focus();
                     }
 
                 } else if (event.keyCode === 37 || event.keyCode === 39) {
-                    chipNavigate === null ? focusOnChip() : iElement.find('chip-tmpl')[chipNavigate(event.keyCode)].focus();
+                    if (chipNavigate === null) {
+                      focusOnChip();
+                      if (event.target.nodeName === 'INPUT') {
+                        // Do nothing when focus was on input except giving the focus to the last chip
+                        return;
+                      }
+                    }
+
+                    iElement.find('chip-tmpl')[chipNavigate(event.keyCode)].focus();
                 }
             };
 
