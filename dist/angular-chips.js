@@ -207,10 +207,7 @@
                 }
 
                 if (event.keyCode === 8) {
-                    if (event.target.nodeName === 'INPUT' && event.target.value === '') {
-                        focusOnChip();
-                        event.preventDefault();
-                    } else if (event.target.nodeName === 'CHIP-TMPL') {
+                    if (event.target.nodeName === 'CHIP-TMPL') {
                         /*
                          * This block will be called during chip deletion using delete or Backspace key
                          * Below code will set the focus of the next available chip
@@ -221,15 +218,13 @@
                     }
 
                 } else if (event.keyCode === 37 || event.keyCode === 39) {
-                    if (chipNavigate === null) {
-                      focusOnChip();
-                      if (event.target.nodeName === 'INPUT') {
-                        // Do nothing when focus was on input except giving the focus to the last chip
-                        return;
+                    if (event.target.nodeName === 'CHIP-TMPL') {
+                       if (chipNavigate === null) {
+                         focusOnChip();
                       }
-                    }
 
-                    iElement.find('chip-tmpl')[chipNavigate(event.keyCode)].focus();
+                      iElement.find('chip-tmpl')[chipNavigate(event.keyCode)].focus();
+                    }
                 }
             };
 
