@@ -410,6 +410,12 @@
     function ChipControl() {
         return {
             restrict: 'A',
+            scope: {
+                /*
+                 * optional to indicate that hitting space will also try to add the text as chip
+                 */
+                addOnSpace: '&?'
+            },
             require: '^chips',
             link: ChipControlLinkFun,
         }
@@ -417,11 +423,14 @@
     /*@ngInject*/
     function ChipControlLinkFun(scope, iElement, iAttrs, chipsCtrl) {
         iElement.on('keypress', function(event) {
-            if (event.keyCode === 13 && event.target.value !== '') {
+            var eatSpace = event.keyCode === 32 && scope.addOnSpace;
+            if ((event.keyCode === 13 || eatSpace) && event.target.value !== '') {
                 if (chipsCtrl.addChip(event.target.value)) {
                   event.target.value = "";
                 }
                 event.preventDefault();
+            } else if (eatSpace) {
+              event.preventDefault();
             }
         });
 
