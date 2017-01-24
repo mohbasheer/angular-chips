@@ -206,7 +206,7 @@
                 }
 
                 if (event.keyCode === 8) {
-                    if (event.target.nodeName === 'INPUT' && event.target.value === '') {
+                    if (event.target.nodeName === 'INPUT' && event.target.value === '' && (!scope.noFocusOnChipWhenBackspaceInInput)) {
                         focusOnChip();
                         event.preventDefault();
                     } else if (event.target.nodeName === 'CHIP-TMPL') {
@@ -236,7 +236,8 @@
                  * optional callback, this will be called before rendering the data,
                  * user can modify the data before it's rendered
                  */
-                render: '&?'
+                render: '&?',
+                noFocusOnChipWhenBackspaceInInput : '=?'
             },
             transclude: true,
             require: 'ngModel',
