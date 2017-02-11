@@ -29,6 +29,26 @@
             <div>inputdemo.companies = {{inputdemo.companies}}</div>
         </div>
     </div>
+     <!-- Basic Example with typeahead-->
+    <!--  -->
+    <!--  -->
+    <h4>Basic Example with type-ahead</h4>
+    <div ng-controller="basicController as inputdemo">
+        <chips ng-model="inputdemo.companies">
+            <chip-tmpl>
+                <div class="default-chip">
+                    {{chip}}
+                    <span class="glyphicon glyphicon-remove" remove-chip></span>
+                </div>
+            </chip-tmpl>
+            <input type-ahead="inputdemo.availableCompanies" ng-model="inputdemo.filter"></input>
+        </chips>
+        <!-- Printing controller value -->
+        <div class="printvalue">
+            <b>Controller:</b>
+            <div>inputdemo.companies = {{inputdemo.companies}}</div>
+        </div>
+    </div>
     <!-- Example for Custom Rendering -->
     <!--  -->
     <!--  -->
@@ -121,13 +141,35 @@
             <div> typeahead.companies = {{typeahead.companies}}</div>
         </div>
     </div>
+    <!-- Example for Using typeahead without bootstrap-->
+    <!--  -->
+    <!--  -->
+    <br>
+    <h4>Using ypeahead without bootstrap</h4>
+    <div ng-controller="basicController as typeahead">
+        <chips ng-model="typeahead.selectedCountries">
+            <chip-tmpl>
+                <div class="default-chip">
+                    {{chip.capital}}
+                    <span class="glyphicon glyphicon-remove" remove-chip></span>
+                </div>
+            </chip-tmpl>
+            <input  ng-model="typeahead.model" type-ahead="typeahead.countries" display-key="capital"></input>
+        </chips>
+        <!-- Printing controller value -->
+        <div class="printvalue">
+            <b>Controller:</b>
+            <div> typeahead.companies = {{typeahead.selectedCountries | json}}</div>
+        </div>
+    </div>
     <br>
     <br>
     <br>
     <br>
 </body>
+<script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
-<script type="text/javascript" src="/dist/angular-chips.min.js"></script>
+<script type="text/javascript" src="/dist/angular-chips.js"></script>
 <script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 <script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script type="text/javascript" src="app.js"></script>
@@ -135,5 +177,4 @@
 <script type="text/javascript" src="custom_rendering_example.js"></script>
 <script type="text/javascript" src="using_promise_str_example.js"></script>
 <script type="text/javascript" src="using_promise_obj_example.js"></script>
-
 </html>
