@@ -1,5 +1,7 @@
 # Angular-Chips
 
+[![Join the chat at https://gitter.im/mohbasheer/angular-chips](https://badges.gitter.im/mohbasheer/angular-chips.svg)](https://gitter.im/mohbasheer/angular-chips?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Angular-Chips is the angular based component. You can use it to add dynamic chips or free form tags. check samples directory for more information.
 
 ### Install:
