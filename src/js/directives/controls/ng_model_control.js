@@ -13,6 +13,12 @@
             link: function(scope, iElement, iAttrs, controller) {
                 var ngModelCtrl = controller[0],
                     chipsCtrl = controller[1];
+
+                scope.onSelect = function (item,model,label,event) {
+                    if(ngModelCtrl.$modelValue === item)
+                        ngModelCtrl.$render()
+                }
+                
                 ngModelCtrl.$render = function(event) {
                     if (!ngModelCtrl.$modelValue)
                         return;
