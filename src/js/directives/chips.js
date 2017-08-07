@@ -7,6 +7,10 @@
         return obj && angular.isFunction(obj.then);
     }
 
+    function isArray(obj) {
+        return Object.prototype.toString.call(obj) === '[object Array]';
+    }
+
     /*
      * update values to ngModel reference
      */
@@ -103,7 +107,7 @@
                 } else { updatedData = data }
 
                 if (!updatedData) {
-                  return false;
+                    return false;
                 }
 
                 if (isPromiseLike(updatedData)) {
@@ -112,6 +116,10 @@
                     });
                     scope.chips.list.push(new DeferChip(data, updatedData));
                     scope.$apply();
+                } else if(isArray(updatedData)){
+                    for(var i = 0; i < updatedData.length; i++){
+                        update(updatedData[i]);
+                    }
                 } else {
                     update(updatedData);
                 }
