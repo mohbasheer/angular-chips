@@ -7,6 +7,10 @@
         return obj && angular.isFunction(obj.then);
     }
 
+    function isArray(obj) {
+        return Object.prototype.toString.call(obj) === '[object Array]';
+    }
+
     /*
      * update values to ngModel reference
      */
@@ -81,6 +85,7 @@
             var model = ngModel(ngModelCtrl);
             var isDeferFlow = iAttrs.hasOwnProperty('defer');
             var functionParam = getParamKey(iAttrs.render);
+            var isUnique = iAttrs.hasOwnProperty('unique'); // TODO check uniqueness
 
             /*
              *  @scope.chips.addChip should be called by chipControl directive or custom XXXcontrol directive developed by end user
@@ -103,22 +108,33 @@
                 } else { updatedData = data }
 
                 if (!updatedData) {
-                  return false;
+                    return false;
                 }
 
                 if (isPromiseLike(updatedData)) {
-                    updatedData.then(function(response) {
-                        model.add(response);
-                    });
-                    scope.chips.list.push(new DeferChip(data, updatedData));
+                    scope.chips.list.push(
+                        new DeferChip(
+                            data,
+                            updatedData.then(function(response) {
+                                response = isArray(response) ? response : [response];
+                                var first = response.shift() // get first element, it will be populated to DeferChip
+                                update(response.map(function(r) { return { defer: r } })); // add all other elements, if any
+                                model.add(first);
+                                return first;
+                            })
+                        )
+                    );
                     scope.$apply();
                 } else {
                     update(updatedData);
                 }
 
                 function update(data) {
-                    scope.chips.list.push(data);
-                    model.add(data);
+                    data = isArray(data) ? data : [data];
+                    for (var i = 0; i < data.length; i++) {
+                        scope.chips.list.push(data[i]);
+                        model.add(data[i]);
+                    }
                 }
 
                 return true;
