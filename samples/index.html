@@ -75,6 +75,31 @@
             <div> usingPromise.list = {{usingPromise.list}}</div>
         </div>
     </div>
+    <!-- Example for Using Promise, returning array (with list of string) -->
+    <!--  -->
+    <!--  -->
+    <br>
+    <h4>Using Promise, returning array (with list of string)</h4>
+    <h5>For example, type "korea" to get both Koreas at once!</h5>
+    <div ng-controller="usingPromiseStrArrayController as usingPromise">
+        <chips defer ng-model="usingPromise.list" render="usingPromise.render(data)">
+            <chip-tmpl>
+                <div class="default-chip">
+                    {{chip.defer}}
+                    <span class="glyphicon glyphicon-remove" remove-chip="usingPromise.deleteChip(data)"></span>
+                    <div class="loader-container" ng-show="chip.isLoading">
+                        <i class="fa fa-spinner fa-spin fa-lg loader"></i>
+                    </div>
+                </div>
+            </chip-tmpl>
+            <input chip-control></input>
+        </chips>
+        <!-- Printing controller value -->
+        <div class="printvalue">
+            <b>Controller:</b>
+            <div> usingPromise.list = {{usingPromise.list}}</div>
+        </div>
+    </div>
     <!-- Example for Using Promise (with list of object) -->
     <!--  -->
     <!--  -->
@@ -134,6 +159,7 @@
 <script type="text/javascript" src="basic_example.js"></script>
 <script type="text/javascript" src="custom_rendering_example.js"></script>
 <script type="text/javascript" src="using_promise_str_example.js"></script>
+<script type="text/javascript" src="using_promise_str_array_example.js"></script>
 <script type="text/javascript" src="using_promise_obj_example.js"></script>
 
 </html>

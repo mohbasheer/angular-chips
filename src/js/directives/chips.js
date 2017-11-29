@@ -7,6 +7,10 @@
         return obj && angular.isFunction(obj.then);
     }
 
+    function isArray(obj) {
+        return Object.prototype.toString.call(obj) === '[object Array]';
+    }
+
     /*
      * update values to ngModel reference
      */
@@ -71,7 +75,7 @@
         return funStr.substr(openParenthesisIndex, closeParenthesisIndex - openParenthesisIndex);
     }
     /*@ngInject*/
-    function Chips($compile, $timeout, DomUtil) {
+    function Chips($q, $compile, $timeout, DomUtil) {
         /*@ngInject*/
         function linkFun(scope, iElement, iAttrs, ngModelCtrl, transcludefn) {
             if ((error = validation(iElement)) !== '') {
@@ -103,22 +107,32 @@
                 } else { updatedData = data }
 
                 if (!updatedData) {
-                  return false;
+                    return false;
                 }
 
                 if (isPromiseLike(updatedData)) {
-                    updatedData.then(function(response) {
-                        model.add(response);
-                    });
+                    updatedData = updatedData.then(function(response) {
+                        if (response == null || (isArray(response) && !response.length)) {
+                            throw data; // got no data
+                        }
+                        var arr = isArray(response) ? response : [response];
+                        var first = arr.shift(); // get first element, it will be populated to DeferChip
+                        update(arr, true); // add all other elements, if any
+                        model.add(first);
+                        return first;
+                    })
                     scope.chips.list.push(new DeferChip(data, updatedData));
                     scope.$apply();
                 } else {
                     update(updatedData);
                 }
 
-                function update(data) {
-                    scope.chips.list.push(data);
-                    model.add(data);
+                function update(data, defer) {
+                    var arr = isArray(data) ? data : [data];
+                    for (var i = 0; i < arr.length; i++) {
+                        scope.chips.list.push(defer ? new DeferChip(arr[i], $q.when(arr[i])) : arr[i]);
+                        model.add(arr[i]);
+                    }
                 }
 
                 return true;
