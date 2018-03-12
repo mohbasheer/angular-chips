@@ -411,6 +411,9 @@
         return {
             restrict: 'A',
             require: '^chips',
+            scope: {
+                addOnBlur: '&?'
+            },
             link: ChipControlLinkFun,
         }
     };
@@ -430,6 +433,10 @@
         });
         iElement.on('blur', function() {
             chipsCtrl.setFocus(false);
+
+            if (scope.addOnBlur && event.target.value !== '' && chipsCtrl.addChip(event.target.value)) {
+              event.target.value = '';
+            }
         });
     };
 })();
