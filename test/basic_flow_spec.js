@@ -42,6 +42,15 @@ describe('Directive chips : Basic flow', function() {
         expect(scope.samples[scope.samples.length-1]).toBe('Spain');
     });
 
+    it('pressing Comma key (,) on INPUT element should add the chip',function(){
+        var inputEle = element.find('INPUT')[0];
+        inputEle.value = 'Italy';
+        var event = new Event('keypress');
+        event.keyCode = 44;
+        inputEle.dispatchEvent(event);
+        expect(scope.samples[scope.samples.length-1]).toBe('Italy');
+    });
+
     it('check deleting chip by passing string', function() {
         isolateScope.chips.deleteChip(scope.samples.indexOf('Pramati'));
         expect(scope.samples.indexOf('Pramati')).toBe(-1);
