@@ -1,3 +1,5 @@
+# No longer under maintenance
+
 # Angular-Chips
 
 Angular-Chips is the angular based component. You can use it to add dynamic chips or free form tags. check samples directory for more information.
